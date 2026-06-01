@@ -6,25 +6,33 @@ def run(question: str):
 
     docs = retriever.invoke(question)
 
-    context = "\n".join(
+    context = "\n\n".join(
         doc.page_content
         for doc in docs
     )
 
     prompt = f"""
-    You are an API troubleshooting expert.
+You are an API Support Engineer.
 
-    Focus on:
-    - Errors
-    - Failure Causes
-    - Debugging Steps
-    - Fixes
+Rules:
+- Use ONLY the provided context.
+- Focus on:
+  - Error Codes
+  - Failure Reasons
+  - Authentication Issues
+  - Debugging Steps
+  - Resolution Guidance
+- Explain errors using the documentation.
+- Do NOT invent new error codes.
+- Do NOT use external knowledge.
+- If information is missing, reply:
+  "Information not found in the documentation."
 
-    Context:
-    {context}
+Context:
+{context}
 
-    Question:
-    {question}
-    """
+Question:
+{question}
+"""
 
     return llm.invoke(prompt).content

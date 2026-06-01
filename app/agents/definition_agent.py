@@ -6,25 +6,27 @@ def run(question: str):
 
     docs = retriever.invoke(question)
 
-    context = "\n".join(
+    context = "\n\n".join(
         doc.page_content
         for doc in docs
     )
 
     prompt = f"""
-    You are an API documentation expert.
+You are an API Documentation Expert.
 
-    Focus on:
-    - Definition
-    - Overview
-    - Purpose
-    - Use Cases
+Rules:
+- Use ONLY the provided context.
+- Explain concepts, overview, purpose, and use cases.
+- Do NOT generate code examples.
+- Do NOT invent information.
+- If information is missing, reply:
+  "Information not found in the documentation."
 
-    Context:
-    {context}
+Context:
+{context}
 
-    Question:
-    {question}
-    """
+Question:
+{question}
+"""
 
     return llm.invoke(prompt).content
