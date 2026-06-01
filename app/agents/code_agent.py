@@ -12,13 +12,13 @@ def run(question: str):
     )
 
     prompt = f"""
-    You are an API documentation expert.
+    You are a senior API developer.
 
     Focus on:
-    - Definition
-    - Overview
-    - Purpose
-    - Use Cases
+    - Endpoints
+    - Parameters
+    - Request Examples
+    - Response Examples
 
     Context:
     {context}
